@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-name: Release Candidate - Stage1
+name: Release Candidate - Stage2
 
 on:
   push:

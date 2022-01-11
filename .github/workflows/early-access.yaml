@@ -45,7 +45,6 @@ jobs:
           Linux: linux
           Windows: windows
           MacOs: darwin
-          macOs: darwin
 
       - name: 'Set up Graal'
         uses: graalvm/setup-graalvm@v1
