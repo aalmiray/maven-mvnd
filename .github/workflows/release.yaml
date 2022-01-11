@@ -66,7 +66,7 @@ jobs:
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v2
         with:
-          name: mvnd-${{ env.VERSION }}-${{ env.OS }}-amd64.zip
+          name: artifacts
           path: dist/target/mvnd-*.zip
 
   release:
@@ -133,7 +133,7 @@ jobs:
           JRELEASER_HOMEBREW_GITHUB_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
           #JRELEASER_SDKMAN_CONSUMER_KEY: ${{ secrets.SDKMAN_CONSUMER_KEY }}
           #JRELEASER_SDKMAN_CONSUMER_TOKEN: ${{ secrets.SDKMAN_CONSUMER_TOKEN }}
-        run: ./mvnw -B --file pom.xml -pl :mvnd -Prelease -DartifactsDir=. jreleaser:full-release
+        run: ./mvnw -B --file pom.xml -pl :mvnd -Prelease -DartifactsDir=artifacts jreleaser:full-release
 
       - name: 'JReleaser output'
         if: always()

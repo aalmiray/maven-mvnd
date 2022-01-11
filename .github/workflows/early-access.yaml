@@ -68,7 +68,7 @@ jobs:
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v2
         with:
-          name: mvnd-${{ env.VERSION }}-${{ env.OS }}-amd64.zip
+          name: artifacts
           path: dist/target/mvnd-*.zip
 
   early-access:
@@ -133,7 +133,7 @@ jobs:
       - name: 'Release to GitHub'
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./mvnw -B --file pom.xml -pl :mvnd -DartifactsDir=. jreleaser:release
+        run: ./mvnw -B --file pom.xml -pl :mvnd -DartifactsDir=artifacts jreleaser:release
 
       - name: 'JReleaser output'
         if: always()
