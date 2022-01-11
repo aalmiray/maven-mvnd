@@ -39,17 +39,13 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v2
 
-      - name: 'Set VERSION'
+      - name: 'Set vars'
         shell: bash
-        run: echo "VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-
-      - uses: bluwy/substitute-string-action@v1
-        id: os
-        with:
-          _input-text: '${{ runner.os }}'
-          ubuntu: linux
-          windows: windows
-          macOs: darwin
+        run: |
+          echo "OS=$(${{ runner.os }}" | awk '{print tolower($0)}')
+          if [ $OS == 'ubuntu' ]; then echo "OS=linux" >> $GITHUB_ENV; fi
+          if [ $OS == 'macos' ]; then echo "OS=darwin" >> $GITHUB_ENV; fi
+          echo "VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: 'Set up Graal'
         uses: graalvm/setup-graalvm@v1
@@ -109,7 +105,9 @@ jobs:
             ${{ runner.os }}-gradlew-
 
       - name: 'Install JReleaser'
-        run: ./gradlew -Prelease=true publishToMavenLocal
+        run: |
+          cd jreleaser
+          ./gradlew -Prelease=true publishToMavenLocal
 
       - name: 'Check out repository'
         uses: actions/checkout@v2
