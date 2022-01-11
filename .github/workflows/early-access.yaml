@@ -42,9 +42,9 @@ jobs:
       - name: 'Set vars'
         shell: bash
         run: |
-          echo "OS=$(echo '${{ runner.os }}' | awk '{print tolower($0)}')"
-          [[ $OS == 'ubuntu' ]] && echo "OS=linux" >> $GITHUB_ENV
-          [[ $OS == 'macos' ]] && echo "OS=darwin" >> $GITHUB_ENV
+          OS=$(echo '${{ runner.os }}' | awk '{print tolower($0)}')
+          [[ $OS == 'ubuntu' ]] && echo "OS=linux" >> $GITHUB_ENV || echo "OS=$OS" >> $GITHUB_ENV
+          [[ $OS == 'macos' ]] && echo "OS=darwin" >> $GITHUB_ENV || echo "OS=$OS" >> $GITHUB_ENV
           echo "VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: 'Set up Graal'
