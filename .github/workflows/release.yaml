@@ -45,9 +45,9 @@ jobs:
         id: os
         with:
           _input-text: '${{ runner.os }}'
-          Linux: linux
-          Windows: windows
-          MacOs: darwin
+          ubuntu: linux
+          windows: windows
+          macOs: darwin
 
       - name: 'Set up Graal'
         uses: graalvm/setup-graalvm@v1
