@@ -43,8 +43,8 @@ jobs:
         shell: bash
         run: |
           echo "OS=$(echo '${{ runner.os }}' | awk '{print tolower($0)}')"
-          if [ $OS == 'ubuntu' ]; then echo "OS=linux" >> $GITHUB_ENV; fi
-          if [ $OS == 'macos' ]; then echo "OS=darwin" >> $GITHUB_ENV; fi
+          if [ $OS = 'ubuntu' ]; then echo "OS=linux" >> $GITHUB_ENV; fi
+          if [ $OS = 'macos' ]; then echo "OS=darwin" >> $GITHUB_ENV; fi
           echo "VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: 'Set up Graal'
