@@ -71,7 +71,7 @@ jobs:
       - name: 'Set up Java'
         uses: actions/setup-java@v2
         with:
-          java-version: JAVA_VERSION
+          java-version: ${{ env.JAVA_VERSION }}
           distribution: 'zulu'
 
       - name: 'Cache Maven packages'
