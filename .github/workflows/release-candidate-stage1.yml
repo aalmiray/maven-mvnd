@@ -60,7 +60,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: daemon-test-logs-${{ steps.os.outputs.result }}
+          name: daemon-test-logs-${{ env.OS }}
           path: integration-tests/target/mvnd-tests/**/daemon*.log
 
   release:

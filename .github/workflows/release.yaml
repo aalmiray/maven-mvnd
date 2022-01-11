@@ -57,16 +57,16 @@ jobs:
         run: ./mvnw clean verify -Pnative -Dmrm=false -B -ntp -e
 
       - name: 'Upload daemon test logs'
-        if: ${{ success() || failure() }}
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: daemon-test-logs-${{ steps.os.outputs.result }}
+          name: daemon-test-logs-${{ env.OS }}
           path: integration-tests/target/mvnd-tests/**/daemon*.log
 
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v2
         with:
-          name: mvnd-${{ env.VERSION }}-${{ steps.os.outputs.result }}-amd64.zip
+          name: mvnd-${{ env.VERSION }}-${{ env.OS }}-amd64.zip
           path: dist/target/mvnd-*.zip
 
   release:
